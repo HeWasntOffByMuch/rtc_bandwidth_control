@@ -30,6 +30,7 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "http-server": "^0.10.0",
     "yargs": "^9.0.1"
   },
   "jest": {
