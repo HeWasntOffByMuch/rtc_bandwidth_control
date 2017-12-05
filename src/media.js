@@ -13,6 +13,12 @@ export function calculateHash(blob) {
   });
 }
 
+window.generateHash = async function (node) {
+  const req = await fetch(node.src);
+  const blob = await req.blob();
+  return calculateHash(blob);
+};
+
 export async function saveMedia(src) {
   const req = await fetch(src);
   const blob = await req.blob();
@@ -44,7 +50,13 @@ export async function loadMedia(hash) {
   }
 
   if (!media) {
-    // setup webrtc
+    return new Promise((resolve) => {
+      socket.emit('request.file', hash);
+      socket.on('response.file', (data) => {
+        if (data.hash == hash)
+          resolve(new Blob([new Uint8Array(data.buffer)]));
+      });
+    })
   }
 
 
